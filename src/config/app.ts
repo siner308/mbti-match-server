@@ -10,8 +10,8 @@ import { useExpressServer } from 'routing-controllers';
 
 import env from './env';
 import initDB from './database';
-import UserController from '../modules/users/UserController';
 import { swaggerFile } from './swagger';
+import MBTIController from '../modules/mbti/MBTIController';
 
 /**
  * Create Express Server
@@ -70,7 +70,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 useExpressServer(app, {
-  controllers: [UserController],
+  controllers: [MBTIController],
   validation: true,
 });
 
