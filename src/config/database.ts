@@ -1,12 +1,11 @@
 import env from './env';
 import 'reflect-metadata';
-import { Connection, createConnection } from 'typeorm';
-import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
+import { ConnectionOptions } from 'typeorm';
 
-const dbConfig: MysqlConnectionOptions = {
+export const dbConfig: ConnectionOptions = {
   type: 'mysql',
   host: env.db.host,
-  port: env.db.port,
+  port: Number(env.db.port),
   username: env.db.username,
   charset: 'utf8mb4_unicode_ci',
   password: env.db.password,
@@ -23,13 +22,3 @@ const dbConfig: MysqlConnectionOptions = {
   dropSchema: env.app.nodeEnv === 'test',
   logging: env.app.nodeEnv !== 'production',
 };
-
-/**
- * Setup Database
- */
-export default async function initDB(): Promise<void> {
-  const connection: Connection = await createConnection(dbConfig);
-  if (connection.isConnected === true) {
-    console.log('database connected');
-  }
-}

@@ -1,9 +1,8 @@
-import { createConnection } from 'typeorm';
 import { ConnectionOptions } from 'typeorm/connection/ConnectionOptions';
 
 require('dotenv').config();
 
-const ormconfig: ConnectionOptions = {
+const ormconfig = {
   type: 'mysql',
   host: process.env.DB_HOST,
   port: Number(process.env.DB_PORT),

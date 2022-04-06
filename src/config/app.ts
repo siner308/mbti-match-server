@@ -9,7 +9,6 @@ import swaggerUi from 'swagger-ui-express';
 import { useExpressServer } from 'routing-controllers';
 
 import env from './env';
-import initDB from './database';
 import { swaggerFile } from './swagger';
 import MBTIController from '../modules/mbti/MBTIController';
 
@@ -99,10 +98,6 @@ if (env.app.nodeEnv === 'production') {
 app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
   console.log(res.statusCode, req.method, req.originalUrl);
   next();
-});
-
-initDB().catch((error: Error) => {
-  throw error;
 });
 
 export default app;
