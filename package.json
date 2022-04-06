@@ -53,6 +53,7 @@
     "mysql": "^2.18.1",
     "routing-controllers": "^0.9.0-alpha.6",
     "routing-controllers-openapi": "^2.2.0",
+    "swagger-ui-express": "^4.3.0",
     "ts-node": "^9.1.1",
     "typeorm": "^0.2.29",
     "typescript": "^4.1.3"
@@ -71,7 +72,6 @@
     "nodemon": "^2.0.6",
     "prettier": "^2.2.1",
     "supertest": "^6.0.1",
-    "swagger-ui-express": "^4.1.5",
     "ts-jest": "^26.4.4"
   },
   "jest": {
