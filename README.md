@@ -2,7 +2,18 @@
 
 # POST /api/mbti
 
-## request
+## request (최초 그룹 생성시)
+```bash
+curl -X "POST" "http://localhost:3000/api/mbti" \
+     -H 'Content-Type: application/json; charset=utf-8' \
+     -d $'{
+  "groupName": "챠니친구",
+  "mbti": "ESFP",
+  "name": "정현"
+}'
+```
+
+## request (기존에 존재하는 그룹에 추가시)
 ```bash
 curl -X "POST" "http://localhost:3000/api/mbti" \
      -H 'Content-Type: application/json; charset=utf-8' \
