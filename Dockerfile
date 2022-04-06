@@ -9,6 +9,7 @@ RUN npm install --production
 
 COPY ./src /app/src
 COPY ./.env /app/.env
+COPY ./ormconfig.ts /app/ormconfig.ts
 COPY ./tsconfig.json /app/tsconfig.json
 RUN npm run build
 
