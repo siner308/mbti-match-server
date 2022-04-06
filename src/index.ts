@@ -3,11 +3,11 @@ import http from 'http';
 import app from './config/app';
 import env from './config/env';
 import { createConnection } from 'typeorm';
-import { dbConfig } from './config/database';
+import { connectionOptions } from './config/database';
 // import webSocket from './socket';
 
 const index: http.Server = app.listen(app.get('port'), async () => {
-  await createConnection(dbConfig);
+  await createConnection(connectionOptions);
   console.log(
     `\n\tApp is running at http://localhost:${app.get('port')} in ${app.get('env')} mode`,
   );

@@ -9,7 +9,7 @@ const baseDir: string = __dirname.split(env.rootDir)[1].split('/')[1];
 const migrationBaseDir: string = baseDir === 'src' ? 'src' : 'dist/src';
 const ext: string = baseDir === 'src' ? 'ts' : 'js';
 
-export const dbConfig: ConnectionOptions = {
+export const connectionOptions: ConnectionOptions = {
   type: 'mysql',
   host: env.db.host,
   port: Number(env.db.port),
