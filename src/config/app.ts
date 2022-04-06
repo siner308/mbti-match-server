@@ -5,11 +5,9 @@ import session from 'express-session';
 import Sentry from '@sentry/node';
 import Tracing from '@sentry/tracing';
 import cors from 'cors';
-import swaggerUi from 'swagger-ui-express';
 import { useExpressServer } from 'routing-controllers';
 
 import env from './env';
-import { swaggerFile } from './swagger';
 import MBTIController from '../modules/mbti/MBTIController';
 
 /**
@@ -72,18 +70,6 @@ useExpressServer(app, {
   controllers: [MBTIController],
   validation: true,
 });
-
-/**
- * Swagger Configuration
- */
-if (env.app.nodeEnv !== 'production') {
-  app.use(
-    '/doc',
-    (req: express.Request, res: express.Response, next: express.NextFunction) => next(),
-    swaggerUi.serve,
-    swaggerUi.setup(swaggerFile),
-  );
-}
 
 /**
  * Error Handler

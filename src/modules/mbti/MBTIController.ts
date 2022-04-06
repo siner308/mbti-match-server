@@ -12,7 +12,6 @@ import {
   BodyParam,
 } from 'routing-controllers';
 import { CreateMatch, GetGroupById } from './MBTIValidator';
-import { OpenAPI } from 'routing-controllers-openapi';
 import { Group } from '../../entities/Group';
 
 @Controller('/api/mbti')
@@ -25,7 +24,6 @@ class MBTIController {
 
   @HttpCode(201)
   @Post()
-  @OpenAPI({ description: 'create match' })
   public async post(
     @Req() req: express.Request,
     @BodyParam('name') name: string,
