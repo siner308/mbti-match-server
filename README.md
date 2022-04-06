@@ -1,10 +1,12 @@
 # mbti-match-server
 
+api host: https://mbti-api.ttbkk.com
+
 # POST /api/mbti
 
 ## request (최초 그룹 생성시)
 ```bash
-curl -X "POST" "http://localhost:3000/api/mbti" \
+curl -X "POST" "https://mbti-api.ttbkk.com/api/mbti" \
      -H 'Content-Type: application/json; charset=utf-8' \
      -d $'{
   "groupName": "챠니친구",
@@ -15,7 +17,7 @@ curl -X "POST" "http://localhost:3000/api/mbti" \
 
 ## request (기존에 존재하는 그룹에 추가시)
 ```bash
-curl -X "POST" "http://localhost:3000/api/mbti" \
+curl -X "POST" "https://mbti-api.ttbkk.com/api/mbti" \
      -H 'Content-Type: application/json; charset=utf-8' \
      -d $'{
   "name": "정현",
@@ -34,9 +36,11 @@ curl -X "POST" "http://localhost:3000/api/mbti" \
 
 # GET /api/mbti/:groupId
 
+Sample: https://mbti-api.ttbkk.com/api/mbti/055a8a88-7a9f-4522-9525-5a39a08699ed
+
 ## request
 ```bash
-curl "http://localhost:3000/api/mbti/069cfd11-d63a-44a7-aea2-ca57a80009ad"
+curl "https://mbti-api.ttbkk.com/api/mbti/069cfd11-d63a-44a7-aea2-ca57a80009ad"
 ```
 
 ## response
