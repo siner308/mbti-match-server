@@ -1,9 +1,9 @@
 import * as dotenv from 'dotenv';
-import * as path from 'path';
+import fs from 'fs';
+import { DotenvParseOutput } from 'dotenv';
 
-dotenv.config({
-  path: path.join(process.cwd(), `.env${process.env.NODE_ENV === 'test' ? '.test' : ''}`),
-});
+const envPath: string = `.env${process.env.NODE_ENV === 'test' ? '.test' : ''}`;
+const parsed: DotenvParseOutput = dotenv.parse(fs.readFileSync(envPath));
 
 interface DatabaseEnv {
   host: string;
@@ -28,30 +28,32 @@ interface AppEnv {
 }
 
 interface Env {
+  rootDir: string;
   db: DatabaseEnv;
   aws: AWSEnv;
   app: AppEnv;
 }
 
 const env: Env = {
+  rootDir: process.cwd(),
   db: {
-    host: process.env.DB_HOST.toString(),
-    port: Number(process.env.DB_PORT),
-    username: process.env.DB_USERNAME.toString(),
-    password: process.env.DB_PASSWORD.toString(),
-    name: process.env.DB_NAME.toString(),
+    host: parsed.DB_HOST.toString(),
+    port: Number(parsed.DB_PORT),
+    username: parsed.DB_USERNAME.toString(),
+    password: parsed.DB_PASSWORD.toString(),
+    name: parsed.DB_NAME.toString(),
   },
   aws: {
-    s3Bucket: process.env.AWS_S3_BUCKET.toString(),
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID.toString(),
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY.toString(),
-    region: process.env.AWS_REGION.toString(),
+    s3Bucket: parsed.AWS_S3_BUCKET.toString(),
+    accessKeyId: parsed.AWS_ACCESS_KEY_ID.toString(),
+    secretAccessKey: parsed.AWS_SECRET_ACCESS_KEY.toString(),
+    region: parsed.AWS_REGION.toString(),
   },
   app: {
-    cookieSecret: process.env.COOKIE_SECRET.toString(),
-    port: Number(process.env.PORT),
-    sentryDSN: process.env.SENTRY_DSN.toString(),
-    nodeEnv: process.env.NODE_ENV.toString(),
+    cookieSecret: parsed.COOKIE_SECRET.toString(),
+    port: Number(parsed.PORT),
+    sentryDSN: parsed.SENTRY_DSN.toString(),
+    nodeEnv: parsed.NODE_ENV.toString(),
   },
 };
 

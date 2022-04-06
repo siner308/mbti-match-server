@@ -1,6 +1,13 @@
 import env from './env';
 import 'reflect-metadata';
 import { ConnectionOptions } from 'typeorm';
+import { User } from '../entities/User';
+import { Group } from '../entities/Group';
+import { Match } from '../entities/Match';
+
+const baseDir: string = __dirname.split(env.rootDir)[1].split('/')[1];
+const migrationBaseDir: string = baseDir === 'src' ? 'src' : 'dist/src';
+const ext: string = baseDir === 'src' ? 'ts' : 'js';
 
 export const dbConfig: ConnectionOptions = {
   type: 'mysql',
@@ -10,13 +17,13 @@ export const dbConfig: ConnectionOptions = {
   charset: 'utf8mb4_unicode_ci',
   password: env.db.password,
   database: env.db.name,
-  entities: ['src/entities/*.ts'],
-  migrations: ['src/migrations/*.ts'],
-  subscribers: ['src/subscribers/*.ts'],
+  entities: [User, Group, Match],
+  migrations: [migrationBaseDir + '/migrations/*.' + ext],
+  subscribers: [migrationBaseDir + '/subscribers/*.' + ext],
   cli: {
-    entitiesDir: 'src/entities',
-    migrationsDir: 'src/migrations',
-    subscribersDir: 'src/subscribers',
+    entitiesDir: baseDir + '/entities',
+    migrationsDir: baseDir + '/migrations',
+    subscribersDir: baseDir + '/subscribers',
   },
   synchronize: env.app.nodeEnv === 'test',
   dropSchema: env.app.nodeEnv === 'test',
