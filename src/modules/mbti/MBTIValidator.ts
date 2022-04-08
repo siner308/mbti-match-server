@@ -11,6 +11,7 @@ export class CreateMatch {
   @Length(1)
   groupName?: string;
 
+  @Length(4, 4)
   @IsEnum(MBTI)
   mbti: MBTI;
 

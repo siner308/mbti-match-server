@@ -1,6 +1,6 @@
 import { CreateMatch } from './MBTIValidator';
 import { Group } from '../../entities/Group';
-import { NotFoundError } from 'routing-controllers';
+import { BadRequestError, NotFoundError } from 'routing-controllers';
 import { User } from '../../entities/User';
 import { Match } from '../../entities/Match';
 import { MatchScore, MBTI } from '../../enums';
@@ -35,8 +35,21 @@ export class MBTIService {
     };
   }
 
+  validateMbti(mbti: string): boolean {
+    if (
+      !'IE'.includes(mbti[0]) ||
+      !'SN'.includes(mbti[1]) ||
+      !'TF'.includes(mbti[2]) ||
+      !'JP'.includes(mbti[3])
+    ) {
+      throw new BadRequestError('invalid mbti');
+    }
+    return true;
+  }
+
   async createGroup(body: CreateMatch): Promise<Group> {
     const { name, mbti, groupId, groupName } = body;
+    this.validateMbti(mbti);
 
     let group: Group;
     if (!groupId) {
@@ -51,7 +64,7 @@ export class MBTIService {
         .getOne();
       if (!group) throw new NotFoundError('not found group error');
       const existUser: User = await User.findOne({ where: { groupId, name } });
-      if (existUser) throw new Error('same name user already exist');
+      if (existUser) throw new BadRequestError('same name user already exist');
     }
 
     const user: User = new User();
