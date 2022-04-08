@@ -14,7 +14,7 @@ export class MBTIService {
     return MBTIService._default;
   }
 
-  async getByGroupId(groupId: string): Promise<{ users: User[]; matches: Match[] }> {
+  async getByGroupId(groupId: string): Promise<{ users: User[]; matches: Match[]; group: Group }> {
     const group: Group = await Group.createQueryBuilder('group')
       .where('group.id = :groupId', { groupId })
       .leftJoinAndSelect('group.users', 'users')
@@ -29,10 +29,14 @@ export class MBTIService {
       delete user.matches;
     });
 
-    return {
+    const data: { matches: Match[]; users: User[]; group: Group } = {
       users: group.users,
       matches,
+      group,
     };
+
+    delete data.group.users;
+    return data;
   }
 
   validateMbti(mbti: string): boolean {

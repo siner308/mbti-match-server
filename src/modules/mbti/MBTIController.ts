@@ -40,10 +40,11 @@ class MBTIController {
     @Res() res: express.Response,
   ): Promise<express.Response> {
     const { groupId } = params;
-    const { users, matches } = await this.service.getByGroupId(groupId);
+    const { users, matches, group } = await this.service.getByGroupId(groupId);
     return res.status(200).send({
       users,
       matches,
+      group,
     });
   }
 }
